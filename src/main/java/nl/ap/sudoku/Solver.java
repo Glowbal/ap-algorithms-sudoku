@@ -5,16 +5,6 @@ public class Solver {
     public static void main(String[] args) {
         Solver solver = new Solver();
 
-        int[][] matrix = {{0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
         int[][] matrix2 = {{0, 0, 0, 0, 7, 0, 4, 0, 3},
                 {0, 0, 9, 8, 3, 0, 0, 0, 5},
                 {0, 6, 1, 0, 0, 0, 0, 0, 0},
@@ -25,22 +15,10 @@ public class Solver {
                 {6, 0, 0, 0, 9, 2, 5, 0, 0},
                 {2, 0, 7, 0, 6, 0, 0, 0, 0}};
 
-        int[][] solution = {{8, 5, 2, 1, 7, 9, 4, 6, 3},
-                {4, 7, 9, 8, 3, 6, 1, 2, 5},
-                {3, 6, 1, 2, 5, 4, 9, 8, 7},
-                {7, 3, 6, 9, 4, 5, 8, 1, 2},
-                {5, 1, 4, 7, 2, 8, 6, 3, 9},
-                {9, 2, 8, 6, 1, 3, 7, 5, 4},
-                {1, 9, 5, 3, 8, 7, 2, 4, 6},
-                {6, 8, 3, 4, 9, 2, 5, 7, 1},
-                {2, 4, 7, 5, 6, 1, 3, 9, 8}};
-
-        solver.solvePuzzle(matrix);
         solver.solvePuzzle(matrix2);
-        solver.solvePuzzle(solution);
     }
 
-    public boolean solvePuzzle(int[][] matrix) {
+    public int[][] solvePuzzle(int[][] matrix) {
         int x, y = 0;
 
         boolean found = false;
@@ -59,12 +37,11 @@ public class Solver {
         }
 
         if (!found) {
-            this.printMatrix(matrix);
-
-            return true;
+            return matrix;
         }
 
         boolean digits[] = new boolean[11];
+
         for (int i = 0; i < 9; i++) {
             digits[matrix[x][i]] = true;
             digits[matrix[i][y]] = true;
@@ -81,15 +58,15 @@ public class Solver {
             if (!digits[i]) {
                 matrix[x][y] = i;
 
-                if (solvePuzzle(matrix)) {
-                    return true;
+                if (solvePuzzle(matrix) != null) {
+                    return matrix;
                 }
 
                 matrix[x][y] = 0;
             }
         }
 
-        return false;
+        return null;
     }
 
     private void printMatrix(int[][] matrix) {
