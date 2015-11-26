@@ -5,16 +5,16 @@ import org.junit.Before;
 
 import java.util.stream.IntStream;
 
-public class SolverTest extends TestCase {
+public class SudokuSolverTest extends TestCase {
 
-    Solver solver;
+    SudokuSolver sudokuSolver;
 
     @Before
     public void setUp() throws Exception {
-        solver = new Solver();
+        sudokuSolver = new SudokuSolver();
     }
 
-    public void testSolverAllZeros() {
+    public void testEmptyPuzzle() {
         int[][] matrix = {{0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -25,10 +25,10 @@ public class SolverTest extends TestCase {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
-        validateOutput(solver.solvePuzzle(matrix));
+        validateOutput(sudokuSolver.solvePuzzle(matrix));
     }
 
-    public void testSolverHardPuzzle() {
+    public void testHardPuzzle() {
         int[][] matrix = {{0, 0, 0, 0, 7, 0, 4, 0, 3},
                 {0, 0, 9, 8, 3, 0, 0, 0, 5},
                 {0, 6, 1, 0, 0, 0, 0, 0, 0},
@@ -39,10 +39,10 @@ public class SolverTest extends TestCase {
                 {6, 0, 0, 0, 9, 2, 5, 0, 0},
                 {2, 0, 7, 0, 6, 0, 0, 0, 0}};
 
-        validateOutput(solver.solvePuzzle(matrix));
+        validateOutput(sudokuSolver.solvePuzzle(matrix));
     }
 
-    public void testSolverSolvedPuzzle()
+    public void testSolvedPuzzle()
     {
         int[][] matrix = {{8, 5, 2, 1, 7, 9, 4, 6, 3},
                 {4, 7, 9, 8, 3, 6, 1, 2, 5},
@@ -54,10 +54,10 @@ public class SolverTest extends TestCase {
                 {6, 8, 3, 4, 9, 2, 5, 7, 1},
                 {2, 4, 7, 5, 6, 1, 3, 9, 8}};
 
-        validateOutput(solver.solvePuzzle(matrix));
+        validateOutput(sudokuSolver.solvePuzzle(matrix));
     }
 
-    public void testSolverImpossiblePuzzle() {
+    public void testImpossiblePuzzle() {
         int[][] matrix = {{7, 0, 0, 0, 7, 0, 4, 0, 3},
                 {0, 0, 9, 8, 3, 0, 0, 0, 5},
                 {0, 6, 1, 0, 0, 0, 0, 0, 0},
@@ -68,22 +68,24 @@ public class SolverTest extends TestCase {
                 {6, 0, 0, 0, 9, 2, 5, 0, 0},
                 {2, 0, 7, 0, 6, 0, 0, 0, 0}};
 
-        assertNull(solver.solvePuzzle(matrix));
+        assertNull(sudokuSolver.solvePuzzle(matrix));
     }
 
     protected void validateOutput(int[][] expected) {
+        int totalValue = 45;
+
         if (expected == null)
             fail();
 
         for (int i = 0; i < 9; i++) {
-            assertEquals(45, IntStream.of(expected[i]).sum());
+            assertEquals(totalValue, IntStream.of(expected[i]).sum());
 
             int sum = 0;
             for (int j = 0; j < 9; j++) {
                 sum += expected[i][j];
             }
 
-            assertEquals(45, sum);
+            assertEquals(totalValue, sum);
         }
     }
 }
