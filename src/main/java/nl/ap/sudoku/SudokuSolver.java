@@ -58,11 +58,12 @@ public class SudokuSolver {
         // the same 3x3 "sub-box").
         //
         // This array is used to track which digits have been used already on a specific row or column.
-        // So imagine a row of tick boxes each with a digit written next to it (the array index) - these boxes
-        // are checked or unchecked to show a digit has been used or not.
+        // So imagine a row of tick boxes each with a digit written next to it (the array index).
+        // These boxes are checked or unchecked to show a digit has been used or not.
         boolean digits[] = new boolean[11];
 
-        // Re run through the rows/columns around the place (x,y) we want to fill in this iteration
+        // Re run through the rows/columns around the place (x,y)
+        // we want to fill in this iteration
         for (int i = 0; i < 9; i++) {
             // take a used number from the row of x (matrix[x][i]) and mark it as used
             digits[matrix[x][i]] = true;
@@ -83,8 +84,9 @@ public class SudokuSolver {
         }
 
         // We loop over all the numbers we have to check if the next number fits in the puzzle
-        // We update the matrix and check recursively by calling the same function again to check if the puzzle
-        // is correct. If it's not correct we reset the matrix field to 0 and continue with the next value.
+        // We update the matrix and check recursively by calling the same function again to
+        // check if the puzzle is correct. If it's not correct we reset the matrix field to 0
+        // and continue with the next value.
         for (int i = 1; i <= 9; i++) {
             if (!digits[i]) {
                 matrix[x][y] = i;
